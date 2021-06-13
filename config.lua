@@ -7,11 +7,11 @@ Config.Locale       = 'en'
 
 Config.Zones = {
 	{
-		name = "Kargah",
+		--[[name = "Kargah",
 		color = 56,
 		Icon = 566,
 		Scale = 1.0,
-		Display = 4,
+		Display = 4,]]--
 		x = 606.4747, y = -3087.851, z = 5.060791,
 		IsForTopGang = true,
 		Items = {
@@ -38,7 +38,7 @@ Config.Zones = {
 		Scale = 1.0,
 		Display = 4,
 		x = 1086.04, y = -1998.646, z = 29.86377,
-		IsForTopGang = true,
+		IsForTopGang = false,
 		Items = {
 			['folad'] = {
 				label = 'فولاد',
@@ -99,7 +99,7 @@ Config.Zones = {
 	},
 	{
 		x = 605.7626, y = -3095.327, z = 5.16079,
-		IsForTopGang = false,
+		IsForTopGang = true,
 		Items = {
 			['fanar'] = {
 				label = 'فنر',

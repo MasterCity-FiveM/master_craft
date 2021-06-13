@@ -85,12 +85,25 @@ AddEventHandler('master_craft:hasExitedMarker', function(zone)
 	ESX.UI.Menu.CloseAll()
 end)
 
-RegisterNetEvent('master_keymap:e')
-AddEventHandler('master_keymap:e', function() 
-	if CurrentAction ~= nil then
+RegisterNetEvent('master_craft:OpenUI')
+AddEventHandler('master_craft:OpenUI', function()
+	if CurrentAction ~= nil and CurrentActionData.zone ~= nil then
 		TriggerEvent("masterking32:closeAllUI")
 		Citizen.Wait(100)
 		OpenCraftMenu(CurrentActionData.zone)
+	end
+end)
+
+RegisterNetEvent('master_keymap:e')
+AddEventHandler('master_keymap:e', function()
+	if CurrentAction ~= nil and CurrentActionData.zone ~= nil then
+		if Config.Zones[CurrentActionData.zone] and Config.Zones[CurrentActionData.zone].IsForTopGang then
+			TriggerServerEvent('master_craft:OpenUI')
+		else
+			TriggerEvent("masterking32:closeAllUI")
+			Citizen.Wait(100)
+			OpenCraftMenu(CurrentActionData.zone)
+		end
 	end
 end)
 

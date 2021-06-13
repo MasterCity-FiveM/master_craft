@@ -3,6 +3,29 @@ local Craft_Items = {}
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
+RegisterNetEvent('master_craft:OpenUI')
+AddEventHandler('master_craft:OpenUI', function()
+	local _source = source
+	local xPlayer = ESX.GetPlayerFromId(_source)
+	if xPlayer then
+		ESX.TriggerServerCallback('master_gang:GetTopGang', _source, function(topGang)
+			if topGang ~= nil then
+				ESX.TriggerServerCallback("master_gang:GetGang", _source, function(data)
+					if data == false then
+						TriggerClientEvent("pNotify:SendNotification", _source, { text = "شما گنگ ندارید!", type = "error", timeout = 10000, layout = "bottomCenter"})
+					elseif data.gang == topGang then
+						TriggerClientEvent("master_craft:OpenUI", _source)
+					else
+						TriggerClientEvent("pNotify:SendNotification", _source, { text = "این بخش فقط در دسترس گنگی می باشد که بیشترین مناطق تحت پوشش را دارد!", type = "error", timeout = 10000, layout = "bottomCenter"})
+					end
+				end, _source)
+			else
+				TriggerClientEvent("pNotify:SendNotification", _source, { text = "این بخش فقط در دسترس گنگی می باشد که بیشترین مناطق تحت پوشش را دارد!", type = "error", timeout = 10000, layout = "bottomCenter"})
+			end
+		end)
+	end
+end)
+
 RegisterNetEvent('master_craft:createItem')
 AddEventHandler('master_craft:createItem', function(Item, Zone)
 	local _source = source
@@ -30,6 +53,34 @@ AddEventHandler('master_craft:createItem', function(Item, Zone)
 	end
 	
 	local ItemData = Config.Zones[Zone].Items[Item]
+	
+	local reciveData = false
+	local allowtoGO = false
+	if Config.Zones[Zone].IsForTopGang then
+		ESX.TriggerServerCallback('master_gang:GetTopGang', _source, function(topGang)
+			if topGang ~= nil then
+				ESX.TriggerServerCallback("master_gang:GetGang", _source, function(data)
+					if data ~= false and data.gang ~= nil and data.gang == topGang then
+						allowtoGO = true
+					end
+					reciveData = true
+				end, _source)
+			else
+				reciveData = true
+			end
+		end)
+	else
+		reciveData = true
+		allowtoGO = true
+	end
+	
+	while not reciveData do
+		Citizen.Wait(1)
+	end
+	
+	if not allowtoGO then
+		return
+	end
 	
 	if ItemData.price > 0 and ItemData.price > xPlayer.getMoney() then
 		TriggerClientEvent("pNotify:SendNotification", _source, { text = "شما پول کافی ندارید.", type = "error", timeout = 5000, layout = "bottomCenter"})
