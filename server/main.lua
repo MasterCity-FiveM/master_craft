@@ -5,6 +5,7 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 RegisterNetEvent('master_craft:OpenUI')
 AddEventHandler('master_craft:OpenUI', function()
+	ESX.RunCustomFunction("anti_ddos", source, 'master_craft:OpenUI', {})
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
 	if xPlayer then
@@ -28,6 +29,7 @@ end)
 
 RegisterNetEvent('master_craft:createItem')
 AddEventHandler('master_craft:createItem', function(Item, Zone)
+	ESX.RunCustomFunction("anti_ddos", source, 'master_craft:createItem', {Item = Item, Zone = Zone})
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
 	
