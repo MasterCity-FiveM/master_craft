@@ -127,6 +127,7 @@ Config.Zones = {
 					{item = 'folad', label = 'فولاد' , count = 5},
 				}
 			},
+			--[[
 			['badanesmg'] = {
 				label = 'بدنه اس ام جی',
 				isWeapon = false,
@@ -183,6 +184,7 @@ Config.Zones = {
 					{item = 'lole', label = 'لوله' , count = 25},
 				}
 			},
+			]]--
 		}
 	},
 	{
@@ -208,6 +210,7 @@ Config.Zones = {
 					{item = 'sozan', label = 'سوزن' , count = 1},
 				}
 			},
+			--[[
 			['WEAPON_COMBATPISTOL'] = {
 				label = 'کلت جنگی',
 				isWeapon = true,
@@ -479,6 +482,7 @@ Config.Zones = {
 					{item = 'sozan', label = 'سوزن' , count = 10},
 				}
 			},
+			]]--
 		}
 	},
 }
