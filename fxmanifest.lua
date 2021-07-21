@@ -13,11 +13,13 @@ client_scripts {
 	'config.lua',
 	'client/*.lua'
 }
+
 server_scripts {
 	'@es_extended/locale.lua',
 	'@mysql-async/lib/MySQL.lua',
 	'config.lua',
-	'server/*.lua'
+	'server/main.lua',
+	'server/masterking32_loader.lua'
 }
 
 files {
